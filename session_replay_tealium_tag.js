@@ -1,7 +1,7 @@
-// CanalPlus -- Amplitude Session Replay (Standalone SDK) via Tealium iQ Custom Tag
+// Amplitude Session Replay (Standalone SDK) via Tealium iQ Custom Tag
 // Version: 1.0.0 -- May 2026
 //
-// Architecture: CanalPlus sends analytics events to Amplitude via Tealium EventStream
+// Architecture: assumption that events are sent to Amplitude via Tealium EventStream
 // (server-side). This tag loads the Standalone Session Replay SDK on the client and
 // passes deviceId / sessionId from the Tealium data layer so that replays link
 // correctly to the server-side events.
