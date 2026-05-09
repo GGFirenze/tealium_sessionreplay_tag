@@ -2,11 +2,11 @@
 
 ## Contexte
 
-Vous utilisez **Tealium EventStream** (connecteur serveur) pour envoyer vos evenements analytics a Amplitude. Le SDK Browser d'Amplitude n'est donc pas charge sur vos pages.
+Si je ne me trompe pas, vous utilisez **Tealium EventStream** (connecteur serveur) pour envoyer vos evenements analytics a Amplitude. Le SDK Browser d'Amplitude n'est donc pas charge sur vos pages.
 
 Pour activer Session Replay dans cette architecture, vous devez utiliser le **SDK Standalone Session Replay** (`@amplitude/session-replay-browser`), charge cote client via un tag Tealium iQ de type "Custom JavaScript".
 
-> **Important :** Le tag que nous vous avions fourni l'ete dernier (avril 2025, version `1236.20240930`) est **obsolete**. Il chargeait le SDK Browser complet + le plugin SR. Ce n'est pas adapte a votre architecture EventStream et la version du plugin SR etait figee a 1.13.9 (la version actuelle est 1.39.0).
+> **Important :** Le tag que nous vous avions fourni l'ete dernier (avril 2025, version `1236.20240930`) est **obsolete**. Il chargeait le SDK Browser complet + le plugin SR. Ce n'est pas adapte a votre architecture EventStream et la version du plugin SR etait figee a 1.13.9 (la version actuelle est 1.42.2).
 
 ---
 
@@ -19,7 +19,7 @@ Pour activer Session Replay dans cette architecture, vous devez utiliser le **SD
 │  ┌───────────────────┐      ┌────────────────────────────┐ │
 │  │  Tealium utag.js  │      │  Session Replay SDK        │ │
 │  │  (data layer)     │─────>│  @amplitude/session-replay │ │
-│  │                   │      │  -browser v1.39.0          │ │
+│  │                   │      │  -browser v1.42.2          │ │
 │  └────────┬──────────┘      └─────────────┬──────────────┘ │
 │           │                               │                 │
 └───────────┼───────────────────────────────┼─────────────────┘
@@ -97,20 +97,6 @@ Si votre site est une Single Page Application :
 
 ## Configuration avancee
 
-### Data Residency EU
-
-Si vous migrez vers le data center EU :
-
-1. Decommentez la ligne `serverZone: "EU"` dans le tag
-2. Changez l'URL du CDN de :
-   ```
-   https://cdn.amplitude.com/libs/session-replay-browser-1.39.0-min.js.gz
-   ```
-   vers :
-   ```
-   https://cdn.eu.amplitude.com/libs/session-replay-browser-1.39.0-min.js.gz
-   ```
-
 ### Masquage de donnees sensibles
 
 Ajoutez un objet `privacyConfig` dans les options d'initialisation :
@@ -156,6 +142,12 @@ worker-src: blob:;
 
 Commencez bas (`0.01`) et augmentez progressivement pour repartir le quota sur le mois entier.
 
+Mon avis serait en fait de créer un graphique des User Sessions et de vérifier le nombre total de sessions sur les 30 derniers jours, ou encore mieux, sur une base mensuelle à partir de
+janvier 2026.
+
+Si vous souhaitez suivre une approche mensuelle depuis janvier, veuillez calculer la valeur moyenne du nombre de sessions, puis prendre 20 % de ce chiffre. Pour un volume d’environ 550k
+sessions par mois, je recommande généralement de configurer le `sampleRate` dans l’UI à 2 % afin d’éviter de consommer tous les replays en seulement 3 ou 4 jours.
+
 ---
 
 ## Verification et debug
@@ -171,7 +163,7 @@ Commencez bas (`0.01`) et augmentez progressivement pour repartir le quota sur l
 
 | Package | Version | Usage |
 |---------|---------|-------|
-| `@amplitude/session-replay-browser` | **1.39.0** | SDK Standalone (votre cas) |
+| `@amplitude/session-replay-browser` | **1.42.2** | SDK Standalone (votre cas) |
 | `@amplitude/plugin-session-replay-browser` | 1.30.1 | Plugin Browser SDK (non applicable) |
 | Version minimum recommandee | 1.31.4+ | Selon la documentation officielle |
 
@@ -179,6 +171,8 @@ Commencez bas (`0.01`) et augmentez progressivement pour repartir le quota sur l
 
 ## Support
 
-Pour toute question sur l'implementation, contactez votre equipe Amplitude Solutions Engineering.
+Pour toute question sur l'implementation, contactez Romain Liégeois pendant mon absence.
 
-Documentation officielle : https://amplitude.com/docs/session-replay/session-replay-standalone-sdk
+Je vous partage aussi notre documentation officielle : https://amplitude.com/docs/session-replay/session-replay-standalone-sdk
+Ici, je vous laisse la doc de notre npm package : https://www.npmjs.com/package/@amplitude/session-replay-browser
+Au cas où, voici la version originelle du tag : https://gist.github.com/jnthns/8535c140a8440b29d0722a225d220ce9 
