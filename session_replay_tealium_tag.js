@@ -86,7 +86,7 @@
   }
 
   loadScript(
-    "https://cdn.amplitude.com/libs/session-replay-browser-1.39.0-min.js.gz",
+    "https://cdn.amplitude.com/libs/session-replay-browser-1.42.2-min.js.gz",
     function (err) {
       if (err) {
         if (window.utag && utag.DB) {
