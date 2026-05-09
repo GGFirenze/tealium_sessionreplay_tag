@@ -55,7 +55,7 @@ Pour activer Session Replay dans cette architecture, vous devez utiliser le **SD
 1. Dans Tealium iQ, allez dans **Tags** > **Add Tag**
 2. Choisissez **Custom Container** (ou **Tealium Custom Container**)
 3. Nommez le tag : `Amplitude Session Replay`
-4. Collez le contenu du fichier `canalplus_session_replay_tealium_tag.js`
+4. Collez le contenu du fichier `session_replay_tealium_tag.js`
 
 ### Etape 2 : Configurer les variables
 
