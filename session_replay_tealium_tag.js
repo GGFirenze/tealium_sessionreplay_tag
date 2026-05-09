@@ -14,7 +14,6 @@
 //
 // SDK: @amplitude/session-replay-browser v1.39.0
 // CDN: https://cdn.amplitude.com/libs/session-replay-browser-1.39.0-min.js.gz
-// Data residency: US
 
 (function () {
   "use strict";
